@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ titulo }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>#1</ion-label>
+      <ion-input type="number" [(ngModel)]="n1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>op</ion-label>
+      <ion-select [(ngModel)]="op">
+        <ion-option value="+">+</ion-option>
+        <ion-option value="-">-</ion-option>
+        <ion-option value="*">*</ion-option>
+        <ion-option value="/">/</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>#2</ion-label>
+      <ion-input type="number" [(ngModel)]="n2"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button color="primary" block (click)="calcular()">Calcular!</button>
+  <hr>
+  <ion-card *ngIf="result">
+    <ion-card-header>
+      Resultado
+    </ion-card-header>
+    <ion-card-content>
+      {{ result }}
+    </ion-card-content>
+  </ion-card>
+  <button ion-button color="secondary" block (click)="limpar()" *ngIf="result">Limpar</button>
+</ion-content>
