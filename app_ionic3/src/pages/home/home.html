@@ -1,38 +1,40 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ titulo }}</ion-title>
+    <ion-title>
+      Viagens
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label floating>#1</ion-label>
-      <ion-input type="number" [(ngModel)]="n1"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>op</ion-label>
-      <ion-select [(ngModel)]="op">
-        <ion-option value="+">+</ion-option>
-        <ion-option value="-">-</ion-option>
-        <ion-option value="*">*</ion-option>
-        <ion-option value="/">/</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>#2</ion-label>
-      <ion-input type="number" [(ngModel)]="n2"></ion-input>
-    </ion-item>
-  </ion-list>
-  <button ion-button color="primary" block (click)="calcular()">Calcular!</button>
-  <hr>
-  <ion-card *ngIf="result">
-    <ion-card-header>
-      Resultado
-    </ion-card-header>
-    <ion-card-content>
-      {{ result }}
+  <ion-card padding *ngFor="let pacote of pacotes; index as i;">
+      <!-- <page-detalhes [pacote]=></page-detalhes> -->
+
+    <img [src]="pacote.imagem" />
+    <ion-card-content padding>
+      <ion-card-title>{{ pacote.titulo }}</ion-card-title>
+      <p>{{(pacote.descricao | slice:0:100) + (pacote.descricao.length > 100 ? '...' : '')}}</p>
+      <!-- <p>{{ pacote.descricao }}</p> -->
+      <h3>{{ pacote.valor | currency:'BRL' }}</h3>
+
+      <ion-row>
+        <ion-col><button ion-button color="primary" (click)="abreDetalhes(pacote)">Saiba mais</button></ion-col>
+        <ion-col><button ion-button color="secondary">Comprar</button></ion-col>
+      </ion-row>
+
+      <div>
+
+
+      </div>
     </ion-card-content>
   </ion-card>
-  <button ion-button color="secondary" block (click)="limpar()" *ngIf="result">Limpar</button>
+
+
+  <!-- <ion-list>
+    <ion-list-header>Follow us on Twitter</ion-list-header>
+    <ion-item>
+      <ion-icon name="ionic" item-start></ion-icon>
+      @ionicframework
+    </ion-item>
+  </ion-list> -->
 </ion-content>
