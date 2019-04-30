@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { VendasProvider } from '../../providers/vendas/vendas';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the CarrinhoPage page.
@@ -15,8 +17,12 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 })
 export class CarrinhoPage {
   carrinho: any = [];
+  user: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+              public toastCtrl: ToastController,
+              public vendasService: VendasProvider) {
   }
 
   ionViewDidLoad() {
@@ -24,6 +30,8 @@ export class CarrinhoPage {
   }
   ionViewWillEnter() {
     this.carrinho = localStorage.getItem('carrinho') ? JSON.parse(localStorage.getItem('carrinho')) : [];
+    this.user = JSON.parse(localStorage.getItem('user'));
+
   }
 
   excluir(id) {
@@ -36,6 +44,24 @@ export class CarrinhoPage {
     });
     msg.present()
 
+  }
+
+  finalizar() {
+    const venda_obj = {
+      user_id: this.user.id,
+      data: JSON.stringify(new Date()),
+      pacotes: this.carrinho,
+    }
+    if(this.vendasService.addVenda(venda_obj)) {
+      const msg = this.toastCtrl.create({
+        message: 'Compra realizada com sucesso!',
+        duration: 2000
+      });
+      msg.present();
+      localStorage.removeItem('carrinho');
+      this.carrinho = null;
+      this.navCtrl.setRoot(HomePage);
+    }
   }
 
 }

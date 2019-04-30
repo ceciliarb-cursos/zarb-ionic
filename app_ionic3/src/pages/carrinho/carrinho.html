@@ -25,6 +25,8 @@
       <ion-col col-2>
         <ion-icon name="trash" color="danger" (click)="excluir(produto.pacote.id)"></ion-icon>
       </ion-col>
-      </ion-row>
+    </ion-row>
   </ion-grid>
+  <p *ngIf='!user' color="danger">Efetue seu login para finalizar sua compra.</p>
+  <button ion-button block color='danger' [disabled]="!user" (click)="finalizar()">Finalizar compra</button>
 </ion-content>

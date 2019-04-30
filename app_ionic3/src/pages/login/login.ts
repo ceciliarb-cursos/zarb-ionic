@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { CadastroPage } from '../cadastro/cadastro';
-import { AngularFireAuth } from 'angularfire2/auth';
+import {AngularFireAuth} from 'angularfire2/auth';
 import { ComprasPage } from '../compras/compras';
 
 /**
@@ -50,8 +50,8 @@ export class LoginPage {
       });
       msg.present();
       const obj_user = {
-        id: resp.user.uid,
-        email: resp.user.email,
+        id: resp.uid,
+        email: resp.email,
       };
       localStorage.setItem('user', JSON.stringify(obj_user));
       this.navCtrl.setRoot(ComprasPage);
